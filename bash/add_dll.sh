@@ -88,7 +88,8 @@ TEST($NAME, sum_test) {
 echo "$text" > $TEST_FILE
 
 # Add library link to $HOME_DIR/src/CMakeLists.txt
-sed -i -e "11a $NAME" $HOME_DIR/src/CMakeLists.txt
+LINE=`sed -n '/PUBLIC/=' ../src/CMakeLists.txt`
+sed -i -e "$LINE"a" $NAME" $HOME_DIR/src/CMakeLists.txt
 
 # Add subdirectory to $HOME_DIR/src/CMakeLists.txt
 FILE="$HOME_DIR/src/CMakeLists.txt"
