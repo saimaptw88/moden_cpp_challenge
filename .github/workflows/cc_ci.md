@@ -1,0 +1,41 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu:latest
+    steps:
+     - name: Git checkout
+       uses: actions/checkout@v2
+     - name: Setup python
+       uses: actions/setup-python@v2
+     - name: Setup lint
+       run: |
+         pip3 install cpplint
+     - name: Setup Test
+       run: |
+         GOOGLE_TEST_VERSION=1.12.0
+         curl -OL https://github.com/google/googletest/archive/release-${GOOGLE_TEST_VERSION}.tar.gz \
+         && tar -zxvf release-${GOOGLE_TEST_VERSION}.tar.gz \
+         && cd googletest-release-${GOOGLE_TEST_VERSION} \
+         && mkdir build \
+         && cd build \
+         && cmake .. \
+         && make \
+         && sudo make install
+     - name: Build
+       run: |
+         mkdir build \
+         && cd build \
+         && cmake .. \
+         && make
+     - name: Cpp Lint
+       run: |
+         cd src \
+         && cpplint --recursive . \
+         && cd ../
+     - name: Google Test
+       run: |
+         cd build \
+         && ctest --verbose
