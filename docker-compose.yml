@@ -1,0 +1,12 @@
+version: '3.3'
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: Docker/Dockerfile
+    volumes:
+      - type: bind
+        source: .
+        target: /cpp-dev
+    tty: true
+    working_dir: /cpp-dev/build
