@@ -12,7 +12,7 @@
 
 
 namespace chapter01 {
-int q1(int);
+unsigned long long q1(unsigned long long);
 int q2(int, int);
 int q3(int, int);
 int q4(int);
