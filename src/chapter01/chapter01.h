@@ -21,6 +21,7 @@ std::vector<std::pair<int, int>> q5(int);
 std::vector<std::pair<int, int>> q6(int);
 std::vector<std::pair<int, int>> q7();
 std::vector<int> q8();
+std::vector<std::pair<int,int>> q9(int);
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_

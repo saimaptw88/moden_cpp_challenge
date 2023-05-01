@@ -174,3 +174,34 @@ std::vector<int> chapter01::q8() {
 
   return ret_val;
 }
+
+std::vector<std::pair<int,int>> chapter01::q9(const int kNum) {
+  std::vector<int> prime;
+
+  for (int i = 1; i <= kNum; ++i) {
+    int count = 0;
+    for (int j = 1; j <=i; ++j) {
+      if (i%j==0) count++;
+    }
+
+    if (count==2) prime.push_back(i);
+  }
+
+  std::vector<std::pair<int, int>> ret_val;
+
+  int num = kNum;
+  for (int i = 0; i < prime.size(); ++i) {
+    if (num == 0) break;
+
+    int coeff = 0;
+    while(num % prime[i] == 0) {
+      num /= prime[i];
+
+      coeff++;
+    }
+
+    if (coeff) ret_val.push_back({prime[i], coeff});
+  }
+
+  return ret_val;
+}
