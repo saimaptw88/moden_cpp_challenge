@@ -156,3 +156,21 @@ std::vector<std::pair<int, int>> chapter01::q7() {
 
   return ret_val;
 }
+
+std::vector<int> chapter01::q8() {
+  std::vector<int> ret_val;
+
+  const int kN = 3;
+
+  for (int i = 100; i < 1000; ++i) {
+    const int kThree = i * 0.01;
+    const int kTwo = (i - 100 * kThree) * 0.1;
+    const int kOne = i % 10;
+
+    float sum = std::pow(kThree, kN) + std::pow(kTwo, kN) + std::pow(kOne, kN);
+
+    if (i == sum) ret_val.push_back(i);
+  }
+
+  return ret_val;
+}
