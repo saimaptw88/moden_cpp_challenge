@@ -14,7 +14,7 @@
 namespace chapter01 {
 unsigned long long q1(unsigned long long);
 int q2(unsigned int, unsigned int);
-int q3(int, int);
+int q3(unsigned int, unsigned int);
 int q4(int);
 std::vector<std::pair<int, int>> q5(int);
 std::vector<std::pair<int, int>> q6(int);

@@ -23,13 +23,11 @@ int chapter01::q2(const unsigned int kA, const unsigned int kB) {
   return gcd(kMax, kMin);
 }
 
-int chapter01::q3(const int kA, const int kB) {
+int chapter01::q3(const unsigned int kA, const unsigned int kB) {
   const int kLCM = q2(kA, kB);
-
   const int kAmultiple = kA / kLCM;
-  const int kBmultiple = kB / kLCM;
 
-  return kLCM * kAmultiple * kBmultiple;
+  return kAmultiple * kB;
 }
 
 int chapter01::q4(const int kNum) {
