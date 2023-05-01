@@ -29,3 +29,12 @@ int chapter01::q2(const int kA, const int kB) {
 
   return ret_val;
 }
+
+int chapter01::q3(const int kA, const int kB) {
+  const int kLCM = q2(kA, kB);
+
+  const int kAmultiple = kA / kLCM;
+  const int kBmultiple = kB / kLCM;
+
+  return kLCM * kAmultiple * kBmultiple;
+}

@@ -11,6 +11,7 @@ int sum(int, int);
 namespace chapter01 {
 int q1(int);
 int q2(int, int);
+int q3(int, int);
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_

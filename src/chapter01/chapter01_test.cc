@@ -40,3 +40,18 @@ TEST(chapter01, q2_test_case3) {
 TEST(chapter01, q2_test_case4) {
   EXPECT_EQ(3, chapter01::q2(24, 15));
 }
+
+// 普通
+TEST(chapter01, q3_test_case1) {
+  EXPECT_EQ(12, chapter01::q3(3, 4));
+}
+
+// 最小公倍数が片方の値
+TEST(chapter01, q3_test_case2) {
+  EXPECT_EQ(12, chapter01::q3(3, 12));
+}
+
+// 同じ値
+TEST(chapter01, q3_test_case3) {
+  EXPECT_EQ(3, chapter01::q3(3, 3));
+}
