@@ -11,18 +11,16 @@ unsigned long long chapter01::q1(const unsigned long long kNum) {
   return sum;
 }
 
-int chapter01::q2(const int kA, const int kB) {
+int chapter01::q2(const unsigned int kA, const unsigned int kB) {
+  std::function<int(const int, const int)> gcd;
+  gcd = [&](const int kA, const int kB) {
+    return (kB == 0) ? kA : gcd(kB, kA % kB);
+  };
+
   const int kMax = std::max(kA, kB);
+  const int kMin = std::min(kA, kB);
 
-  int ret_val = 1;
-  for (int i = 1; i < kMax+1; ++i) {
-    if (kA%i) continue;
-    if (kB%i) continue;
-
-    ret_val = i;
-  }
-
-  return ret_val;
+  return gcd(kMax, kMin);
 }
 
 int chapter01::q3(const int kA, const int kB) {
