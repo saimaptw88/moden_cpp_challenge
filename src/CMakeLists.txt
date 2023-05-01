@@ -9,4 +9,6 @@ find_package(Threads REQUIRED)
 target_link_libraries(
 my_app
 PUBLIC "-pthread"
+chapter01
 )
+add_subdirectory(chapter01)
