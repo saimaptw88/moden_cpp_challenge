@@ -31,25 +31,20 @@ int chapter01::q3(const unsigned int kA, const unsigned int kB) {
 }
 
 int chapter01::q4(const int kNum) {
-  if (kNum == 1) return 0;
-  if (kNum == 2) return 1;
+  auto is_prime = [](const int num) -> bool {
+    if (num < 4) return num > 1;
+    else if (!(num % 2) || !(num % 3)) return false;
+    else
+      for (int i = 5; i*i <= num; i+=6)
+        if (num % i == 0 || num % (i+2) == 0) return false;
 
-  int ret_val = 0;
+    return true;
+  };
 
-  for (int i = 2; i < kNum; ++i) {
-    int count = 0;
+  for (int i = kNum; i > 1; --i)
+    if (is_prime(i)) return i;
 
-    for (int j = 1; j <= i; ++j) {
-      if (i % j != 0) continue;
-
-      count++;
-    }
-
-    if (count != 2) continue;
-    if (i > ret_val) ret_val = i;
-  }
-
-  return ret_val;
+  return 0;
 }
 
 std::vector<std::pair<int, int>> chapter01::q5(const int kNum) {

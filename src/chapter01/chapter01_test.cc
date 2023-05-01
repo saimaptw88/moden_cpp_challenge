@@ -70,7 +70,7 @@ TEST(chapter01, q4_test_case3) {
 
 // 2
 TEST(chapter01, q4_test_case4) {
-  EXPECT_EQ(1, chapter01::q4(2));
+  EXPECT_EQ(2, chapter01::q4(2));
 }
 
 // ペアなし
