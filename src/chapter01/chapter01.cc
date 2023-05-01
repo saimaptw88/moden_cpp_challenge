@@ -94,45 +94,31 @@ std::vector<std::pair<int, int>> chapter01::q6(const int kLimit) {
 }
 
 std::vector<std::pair<int, int>> chapter01::q7() {
-  const int kNum = 300;//1000000;
+  const int kNum = 1000000;
 
-  std::vector<std::pair<int, int>> val;
-  std::vector<std::pair<int, int>> ret_val;
+  auto sum_proper = [](const int kNum) ->int {
+    int sum = 1;
+    const int kRoot = static_cast<int>(std::sqrt(kNum));
 
-  for (int i = 1; i < kNum; ++i) {
-    long long sum = 0LL;
+    for (int i = 2; i <= kRoot; ++i)
+      if (kNum % i == 0) sum += ((kNum / i) == i) ? i : (i + kNum / i);
 
-    for (int j = 1; j < i; ++j) {
-      if (i%j==0) sum += j;
-    }
-
-    val.push_back({i, sum});
-  }
-
-  for (int i = 0; i < val.size(); ++i) {
-    std::cout << val[i].first << ", " << val[i].second << std::endl;
-  }
-
-  using kPair = const std::pair<int, int>&;
-  auto cmp = [](kPair a, kPair b) -> bool {
-    return a.first < b.second;
+    return sum;
   };
 
-  for (int i = 0; i < val.size(); ++i) {
-    if (val[i].second > kNum) continue;
+  std::vector<std::pair<int, int>> ret_val;
+  std::vector<int> pass;
+  for (int i = 1; i <= kNum; ++i) {
+    if (std::binary_search(pass.begin(), pass.end(), i)) continue;
 
-    const auto kItr = std::lower_bound(val.begin(), val.end(), val[i], cmp);
-    const int kI = std::distance(val.begin(), kItr);
+    if (auto sum1 = sum_proper(i); sum1 <= kNum) {
+      if (auto sum2 = sum_proper(sum1); sum2 == i && i != sum1) {
+        pass.push_back(i);
+        pass.push_back(sum1);
 
-    if (val[kI].second == val[i].first) {
-      if (val[i].first == val[kI].first) continue;
-
-      ret_val.push_back({val[i].first, val[kI].first});
+        ret_val.push_back({i, sum1});
+      }
     }
-  }
-
-  for (int i = 0; i < ret_val.size(); ++i) {
-    std::cout << ret_val[i].first << ", " << ret_val[i].second << std::endl;
   }
 
   return ret_val;
