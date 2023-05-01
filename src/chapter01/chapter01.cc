@@ -72,15 +72,22 @@ std::vector<std::pair<int, int>> chapter01::q5(const int kNum) {
 std::vector<std::pair<int, int>> chapter01::q6(const int kLimit) {
   std::vector<std::pair<int, int>> ret_val;
 
-  if (kLimit < 1) return ret_val;
+  // 真の約数の総和
+  auto sum_proper = [](const int kNum) ->int {
+    int sum = 1;
+    const int kRoot = static_cast<int>(std::sqrt(kNum));
+
+    for (int i = 2; i <= kRoot; ++i)
+      if (kNum % i == 0) sum += ((kNum / i) == i) ? i : (i + kNum / i);
+
+    return sum;
+  };
 
   for (int i = 1; i <= kLimit; ++i) {
-    int sum = 0;
+    int sum = sum_proper(i);
 
-    for (int j = 1; j <= i; ++j)
-      if (i%j == 0) sum += j;
-
-    if (sum > i*2) ret_val.push_back({i, sum});
+    if (sum > i)
+      ret_val.push_back({i, sum - i});
   }
 
   return ret_val;
