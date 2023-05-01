@@ -90,3 +90,18 @@ TEST(chapter01, q5_test_case2) {
 TEST(chapter01, q5_test_case3) {
   EXPECT_EQ(2, chapter01::q5(14).size());
 }
+
+// 0組
+TEST(chapter01, q6_test_case1) {
+  EXPECT_EQ(0, chapter01::q6(1).size());
+}
+
+// 1組
+TEST(chapter01, q6_test_case2) {
+  EXPECT_EQ(1, chapter01::q6(13).size());
+}
+
+// 3組
+TEST(chapter01, q6_test_case3) {
+  EXPECT_EQ(3, chapter01::q6(20).size());
+}

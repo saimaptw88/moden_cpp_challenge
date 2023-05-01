@@ -94,3 +94,20 @@ std::vector<std::pair<int, int>> chapter01::q5(const int kNum) {
 
   return ret_val;
 }
+
+std::vector<std::pair<int, int>> chapter01::q6(const int kLimit) {
+  std::vector<std::pair<int, int>> ret_val;
+
+  if (kLimit < 1) return ret_val;
+
+  for (int i = 1; i <= kLimit; ++i) {
+    int sum = 0;
+
+    for (int j = 1; j <= i; ++j)
+      if (i%j == 0) sum += j;
+
+    if (sum > i*2) ret_val.push_back({i, sum});
+  }
+
+  return ret_val;
+}
