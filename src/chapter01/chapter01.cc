@@ -15,3 +15,17 @@ int chapter01::q1(const int kNum) {
 
   return sum;
 }
+
+int chapter01::q2(const int kA, const int kB) {
+  const int kMax = std::max(kA, kB);
+
+  int ret_val = 1;
+  for (int i = 1; i < kMax+1; ++i) {
+    if (kA%i) continue;
+    if (kB%i) continue;
+
+    ret_val = i;
+  }
+
+  return ret_val;
+}
