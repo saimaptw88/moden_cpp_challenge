@@ -55,3 +55,23 @@ TEST(chapter01, q3_test_case2) {
 TEST(chapter01, q3_test_case3) {
   EXPECT_EQ(3, chapter01::q3(3, 3));
 }
+
+// 3
+TEST(chapter01, q4_test_case1) {
+  EXPECT_EQ(3, chapter01::q4(4));
+}
+
+// 1
+TEST(chapter01, q4_test_case2) {
+  EXPECT_EQ(0, chapter01::q4(1));
+}
+
+// 普通
+TEST(chapter01, q4_test_case3) {
+  EXPECT_EQ(23, chapter01::q4(24));
+}
+
+// 2
+TEST(chapter01, q4_test_case4) {
+  EXPECT_EQ(1, chapter01::q4(2));
+}
