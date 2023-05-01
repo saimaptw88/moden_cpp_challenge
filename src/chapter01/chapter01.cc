@@ -52,31 +52,19 @@ std::vector<std::pair<int, int>> chapter01::q5(const int kNum) {
 
   if (kNum < 7) return ret_val;
 
-  int num = 0;
-  std::vector<int> lcm;
+  auto is_prime = [](const int num) -> bool {
+    if (num < 4) return num > 1;
+    else if (!(num % 2) || !(num % 3)) return false;
+    else
+      for (int i = 5; i*i <= num; i+=6)
+        if (num % i == 0 || num % (i+2) == 0) return false;
 
-  for (int i = 2; i < kNum; ++i) {
-    int count = 0;
+    return true;
+  };
 
-    for (int j = 1; j <= i; ++j) {
-      if (i % j) continue;
-
-      count ++;
-    }
-
-    if (count != 2) continue;
-
-    if (i <= num) continue;
-
-    num = i;
-    lcm.push_back(num);
-  }
-
-  for (int i = 0; i < lcm.size(); ++i) {
-    auto itr = std::find(lcm.begin(), lcm.end(), lcm[i]+6);
-
-    if (itr != lcm.end()) ret_val.push_back({lcm[i], lcm[i]+6});
-  }
+  for (int i = 2; i <= kNum - 6; ++i)
+    if (is_prime(i) && is_prime(i+6))
+      ret_val.push_back({i, i+6});
 
   return ret_val;
 }
