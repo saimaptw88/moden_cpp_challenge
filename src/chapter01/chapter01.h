@@ -3,6 +3,7 @@
 #define SRC_CHAPTER01_CHAPTER01_H_
 
 #include <algorithm>
+#include <bitset>
 #include <cmath>
 #include <functional>
 #include <iostream>
@@ -22,6 +23,7 @@ std::vector<std::pair<int, int>> q6(int);
 std::vector<std::pair<int, int>> q7();
 std::vector<int> q8();
 std::vector<std::pair<int,int>> q9(int);
+std::vector<std::pair<std::bitset<5>,std::bitset<5>>> q10();
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_
