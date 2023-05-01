@@ -4,6 +4,8 @@
 
 #include <algorithm>
 #include <iostream>
+#include <utility>
+#include <vector>
 
 
 int sum(int, int);
@@ -13,6 +15,7 @@ int q1(int);
 int q2(int, int);
 int q3(int, int);
 int q4(int);
+std::vector<std::pair<int, int>> q5(int);
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_

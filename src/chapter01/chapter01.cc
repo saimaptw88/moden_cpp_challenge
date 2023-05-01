@@ -46,12 +46,50 @@ int chapter01::q4(const int kNum) {
   int ret_val = 0;
 
   for (int i = 2; i < kNum; ++i) {
-    for (int j = 2; j < i+1; ++j) {
-      if (i % j != 0) continue;
-      if (j <= ret_val) continue;
+    int count = 0;
 
-      ret_val = j;
+    for (int j = 1; j <= i; ++j) {
+      if (i % j != 0) continue;
+
+      count++;
     }
+
+    if (count != 2) continue;
+    if (i > ret_val) ret_val = i;
+  }
+
+  return ret_val;
+}
+
+std::vector<std::pair<int, int>> chapter01::q5(const int kNum) {
+  std::vector<std::pair<int, int>> ret_val;
+
+  if (kNum < 7) return ret_val;
+
+  int num = 0;
+  std::vector<int> lcm;
+
+  for (int i = 2; i < kNum; ++i) {
+    int count = 0;
+
+    for (int j = 1; j <= i; ++j) {
+      if (i % j) continue;
+
+      count ++;
+    }
+
+    if (count != 2) continue;
+
+    if (i <= num) continue;
+
+    num = i;
+    lcm.push_back(num);
+  }
+
+  for (int i = 0; i < lcm.size(); ++i) {
+    auto itr = std::find(lcm.begin(), lcm.end(), lcm[i]+6);
+
+    if (itr != lcm.end()) ret_val.push_back({lcm[i], lcm[i]+6});
   }
 
   return ret_val;

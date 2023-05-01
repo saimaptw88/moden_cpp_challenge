@@ -68,10 +68,25 @@ TEST(chapter01, q4_test_case2) {
 
 // 普通
 TEST(chapter01, q4_test_case3) {
-  EXPECT_EQ(23, chapter01::q4(24));
+  EXPECT_EQ(23, chapter01::q4(25));
 }
 
 // 2
 TEST(chapter01, q4_test_case4) {
   EXPECT_EQ(1, chapter01::q4(2));
+}
+
+// ペアなし
+TEST(chapter01, q5_test_case1) {
+  EXPECT_EQ(0, chapter01::q5(3).size());
+}
+
+// 1組
+TEST(chapter01, q5_test_case2) {
+  EXPECT_EQ(1, chapter01::q5(12).size());
+}
+
+// 2組
+TEST(chapter01, q5_test_case3) {
+  EXPECT_EQ(2, chapter01::q5(14).size());
 }
