@@ -2,9 +2,6 @@
 #include "../../src/chapter01/chapter01.h"
 #include <gtest/gtest.h>
 
-TEST(chapter01, sum_test) {
-  EXPECT_EQ(3, sum(1, 2));
-}
 
 TEST(chapter01, q1_test_case1) {
   int num = 10;

@@ -11,8 +11,6 @@
 #include <vector>
 
 
-int sum(int, int);
-
 namespace chapter01 {
 int q1(int);
 int q2(int, int);
