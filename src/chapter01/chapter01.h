@@ -3,6 +3,7 @@
 #define SRC_CHAPTER01_CHAPTER01_H_
 
 #include <algorithm>
+#include <functional>
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -17,6 +18,7 @@ int q3(int, int);
 int q4(int);
 std::vector<std::pair<int, int>> q5(int);
 std::vector<std::pair<int, int>> q6(int);
+std::vector<std::pair<int, int>> q7();
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_

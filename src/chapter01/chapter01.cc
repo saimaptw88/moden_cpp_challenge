@@ -111,3 +111,48 @@ std::vector<std::pair<int, int>> chapter01::q6(const int kLimit) {
 
   return ret_val;
 }
+
+std::vector<std::pair<int, int>> chapter01::q7() {
+  const int kNum = 300;//1000000;
+
+  std::vector<std::pair<int, int>> val;
+  std::vector<std::pair<int, int>> ret_val;
+
+  for (int i = 1; i < kNum; ++i) {
+    long long sum = 0LL;
+
+    for (int j = 1; j < i; ++j) {
+      if (i%j==0) sum += j;
+    }
+
+    val.push_back({i, sum});
+  }
+
+  for (int i = 0; i < val.size(); ++i) {
+    std::cout << val[i].first << ", " << val[i].second << std::endl;
+  }
+
+  using kPair = const std::pair<int, int>&;
+  auto cmp = [](kPair a, kPair b) -> bool {
+    return a.first < b.second;
+  };
+
+  for (int i = 0; i < val.size(); ++i) {
+    if (val[i].second > kNum) continue;
+
+    const auto kItr = std::lower_bound(val.begin(), val.end(), val[i], cmp);
+    const int kI = std::distance(val.begin(), kItr);
+
+    if (val[kI].second == val[i].first) {
+      if (val[i].first == val[kI].first) continue;
+
+      ret_val.push_back({val[i].first, val[kI].first});
+    }
+  }
+
+  for (int i = 0; i < ret_val.size(); ++i) {
+    std::cout << ret_val[i].first << ", " << ret_val[i].second << std::endl;
+  }
+
+  return ret_val;
+}
