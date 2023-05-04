@@ -7,6 +7,7 @@
 #include <cmath>
 #include <functional>
 #include <iostream>
+#include <list>
 #include <utility>
 #include <vector>
 
@@ -22,6 +23,7 @@ std::vector<std::pair<int, int>> q7();
 std::vector<int> q8();
 std::vector<std::pair<int,int>> q9(int);
 std::vector<std::pair<std::bitset<5>,std::bitset<5>>> q10();
+std::string q11(unsigned long long);
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_

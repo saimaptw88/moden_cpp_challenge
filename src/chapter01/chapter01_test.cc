@@ -114,3 +114,11 @@ TEST(chapter01, q8_test_case1) {
 TEST(chapter01, q9_test_case1) {
   EXPECT_EQ(2, chapter01::q9(10).size());
 }
+
+TEST(chapter01, q11_test_case1) {
+  EXPECT_EQ("XXX", chapter01::q11(30));
+}
+
+TEST(chapter01, q11_test_case2) {
+  EXPECT_EQ("CDXLIV", chapter01::q11(444));
+}

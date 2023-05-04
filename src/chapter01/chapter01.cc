@@ -201,3 +201,33 @@ std::vector<std::pair<std::bitset<5>,std::bitset<5>>> chapter01::q10() {
   }
   return ret_val;
 }
+
+std::string chapter01::q11(const unsigned long long kNum) {
+  const std::vector<std::pair<int, const char*>> roman {
+    {1000, "M"},
+    {900, "CM"},
+    {500, "D"},
+    {400, "CD"},
+    {100, "C"},
+    {90, "XC"},
+    {50, "L"},
+    {40, "XL"},
+    {10, "X"},
+    {9, "IX"},
+    {5, "V"},
+    {4, "IV"},
+    {1, "I"}
+  };
+
+  std::string ret_val;
+  int num = kNum;
+  for (const auto &[roma_num, roma_str] : roman) {
+    while (num >= roma_num) {
+      ret_val += roma_str;
+
+      num -= roma_num;
+    }
+  }
+
+  return ret_val;
+}
