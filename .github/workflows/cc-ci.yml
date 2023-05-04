@@ -38,4 +38,4 @@ jobs:
      - name: Google Test
        run: |
          cd build \
-         && src/chapter01_test
+         && ctest --verbose
