@@ -294,3 +294,19 @@ double chapter01::q13() {
 
   return pi;
 }
+
+bool chapter01::q14(const std::string& str) {
+  if (!std::regex_match(str, std::regex("[0-9]{10}"))) return false;
+
+  int sum = 0;
+  for (int i = 0; i < 10; ++i) {
+    const int kNum = str[i] - '0';
+    const int kDigit = 10 - i;
+
+    sum += kDigit * kNum;
+  }
+
+  if (sum % 11) return false;
+
+  return true;
+}

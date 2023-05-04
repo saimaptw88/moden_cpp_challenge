@@ -130,3 +130,20 @@ TEST(chapter01, q12_test_case1) {
 TEST(chapter01, q13_test_case1) {
   EXPECT_NEAR(3.14159265, chapter01::q13(), 1e-3);
 }
+
+TEST(chapter01, q14_test_case1) {
+  EXPECT_TRUE(chapter01::q14("1111111111"));
+}
+
+TEST(chapter01, q14_test_case2) {
+  EXPECT_FALSE(chapter01::q14("1111111112"));
+}
+
+TEST(chapter01, q14_test_case3) {
+  EXPECT_FALSE(chapter01::q14("01234567891"));
+  EXPECT_FALSE(chapter01::q14("012345678"));
+}
+
+TEST(chapter01, q14_test_case4) {
+  EXPECT_FALSE(chapter01::q14("012345678i"));
+}

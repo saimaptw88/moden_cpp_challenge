@@ -10,6 +10,7 @@
 #include <iostream>
 #include <list>
 #include <random>
+#include <regex>
 #include <utility>
 #include <vector>
 
@@ -28,6 +29,7 @@ std::vector<std::pair<std::bitset<5>,std::bitset<5>>> q10();
 std::string q11(unsigned long long);
 int q12();
 double q13();
+bool q14(const std::string&);
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_
