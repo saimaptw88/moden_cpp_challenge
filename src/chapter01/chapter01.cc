@@ -176,10 +176,10 @@ std::vector<std::pair<int,int>> chapter01::q9(const int kNum) {
 std::vector<std::pair<std::bitset<5>,std::bitset<5>>> chapter01::q10() {
   std::vector<std::pair<std::bitset<5>,std::bitset<5>>> ret_val;
 
-  auto to_gray = [](const std::bitset<5>& a) -> std::bitset<5> {
+  auto gray_encode = [](const std::bitset<5>& a) -> std::bitset<5> {
     return a ^ (a >> 1);
   };
-  auto to_binary = [](const std::bitset<5>& a) -> std::bitset<5> {
+  auto gray_decode = [](const std::bitset<5>& a) -> std::bitset<5> {
     std::bitset<5> ret_val;
 
     ret_val[4] = a[4];
@@ -194,8 +194,8 @@ std::vector<std::pair<std::bitset<5>,std::bitset<5>>> chapter01::q10() {
   for (int i = 0; i < (1 << 5); ++i) {
     std::bitset<5> binary_i(i);
 
-    std::bitset<5> gray = to_gray(binary_i);
-    std::bitset<5> binary = to_binary(gray);
+    std::bitset<5> gray = gray_encode(binary_i);
+    std::bitset<5> binary = gray_decode(gray);
 
     ret_val.push_back({gray, binary});
   }
