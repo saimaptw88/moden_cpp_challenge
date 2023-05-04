@@ -2,10 +2,10 @@
 #include "../../src/chapter01/chapter01.h"
 
 
-unsigned long long chapter01::q1(const unsigned long long kNum) {
-  unsigned long long sum = 0ll;
+unsigned int chapter01::q1(const int kNum) {
+  unsigned int sum = 0;
 
-  for (long long i = 1; i < 1 + kNum; ++i)
+  for (int i = 1; i < 1 + kNum; ++i)
     if (!(i % 3) || !(i % 5)) sum+=i;
 
   return sum;
@@ -32,11 +32,14 @@ int chapter01::q3(const unsigned int kA, const unsigned int kB) {
 
 int chapter01::q4(const int kNum) {
   auto is_prime = [](const int num) -> bool {
-    if (num < 4) return num > 1;
-    else if (!(num % 2) || !(num % 3)) return false;
-    else
+    if (num < 4) {
+      return num > 1;
+    } else if (!(num % 2) || !(num % 3)) {
+      return false;
+    } else {
       for (int i = 5; i*i <= num; i+=6)
         if (num % i == 0 || num % (i+2) == 0) return false;
+    }
 
     return true;
   };
@@ -53,11 +56,14 @@ std::vector<std::pair<int, int>> chapter01::q5(const int kNum) {
   if (kNum < 7) return ret_val;
 
   auto is_prime = [](const int num) -> bool {
-    if (num < 4) return num > 1;
-    else if (!(num % 2) || !(num % 3)) return false;
-    else
+    if (num < 4) {
+      return num > 1;
+    } else if (!(num % 2) || !(num % 3)) {
+      return false;
+    } else {
       for (int i = 5; i*i <= num; i+=6)
         if (num % i == 0 || num % (i+2) == 0) return false;
+    }
 
     return true;
   };
@@ -142,16 +148,16 @@ std::vector<int> chapter01::q8() {
   return ret_val;
 }
 
-std::vector<std::pair<int,int>> chapter01::q9(const int kNum) {
+std::vector<std::pair<int, int>> chapter01::q9(const int kNum) {
   std::vector<int> prime;
 
   for (int i = 1; i <= kNum; ++i) {
     int count = 0;
     for (int j = 1; j <=i; ++j) {
-      if (i%j==0) count++;
+      if (i % j == 0) count++;
     }
 
-    if (count==2) prime.push_back(i);
+    if (count == 2) prime.push_back(i);
   }
 
   std::vector<std::pair<int, int>> ret_val;
@@ -161,7 +167,7 @@ std::vector<std::pair<int,int>> chapter01::q9(const int kNum) {
     if (num == 0) break;
 
     int coeff = 0;
-    while(num % prime[i] == 0) {
+    while (num % prime[i] == 0) {
       num /= prime[i];
 
       coeff++;
@@ -173,8 +179,8 @@ std::vector<std::pair<int,int>> chapter01::q9(const int kNum) {
   return ret_val;
 }
 
-std::vector<std::pair<std::bitset<5>,std::bitset<5>>> chapter01::q10() {
-  std::vector<std::pair<std::bitset<5>,std::bitset<5>>> ret_val;
+std::vector<std::pair<std::bitset<5>, std::bitset<5>>> chapter01::q10() {
+  std::vector<std::pair<std::bitset<5>, std::bitset<5>>> ret_val;
 
   auto gray_encode = [](const std::bitset<5>& a) -> std::bitset<5> {
     return a ^ (a >> 1);
@@ -202,7 +208,7 @@ std::vector<std::pair<std::bitset<5>,std::bitset<5>>> chapter01::q10() {
   return ret_val;
 }
 
-std::string chapter01::q11(const unsigned long long kNum) {
+std::string chapter01::q11(const unsigned int kNum) {
   const std::vector<std::pair<int, const char*>> roman {
     {1000, "M"},
     {900, "CM"},
@@ -235,18 +241,21 @@ std::string chapter01::q11(const unsigned long long kNum) {
 int chapter01::q12() {
   const int limit = 1000000;
 
-  long length = 0L;
-  unsigned long long number = 0LL;
+  int length = 0;
+  unsigned int number = 0;
 
   std::vector<int> cache(limit+1, 0);
 
-  for (long long i = 2; i <= limit; ++i) {
+  for (int i = 2; i <= limit; ++i) {
     auto n = i;
-    long steps = 0L;
+    int steps = 0;
 
     while (n != 1 && n >= i) {
-      if(n%2) n = n * 3 + 1;
-      else n /= 2;
+      if (n % 2) {
+        n = n * 3 + 1;
+      } else {
+        n /= 2;
+      }
 
       steps++;
     }
@@ -262,7 +271,8 @@ int chapter01::q12() {
 }
 
 double chapter01::q13() {
-  auto compute_pi = [](std::mt19937 &engine, std::uniform_real_distribution<> &dist) -> double {
+  auto compute_pi = [](std::mt19937 &engine,
+    std::uniform_real_distribution<> &dist) -> double {
     const int samples = 1000000;
 
     auto hit = 0;
@@ -270,7 +280,7 @@ double chapter01::q13() {
       auto x = dist(engine);
       auto y = dist(engine);
 
-      if (y <= std::sqrt(1-std::pow(x,2))) hit++;
+      if (y <= std::sqrt(1 - std::pow(x, 2))) hit++;
     }
 
     return 4.0 * hit / samples;
