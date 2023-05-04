@@ -122,3 +122,7 @@ TEST(chapter01, q11_test_case1) {
 TEST(chapter01, q11_test_case2) {
   EXPECT_EQ("CDXLIV", chapter01::q11(444));
 }
+
+TEST(chapter01, q12_test_case1) {
+  EXPECT_EQ(837799, chapter01::q12());
+}

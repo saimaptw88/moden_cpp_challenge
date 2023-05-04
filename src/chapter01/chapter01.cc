@@ -231,3 +231,32 @@ std::string chapter01::q11(const unsigned long long kNum) {
 
   return ret_val;
 }
+
+int chapter01::q12() {
+  const int limit = 1000000;
+
+  long length = 0L;
+  unsigned long long number = 0LL;
+
+  std::vector<int> cache(limit+1, 0);
+
+  for (long long i = 2; i <= limit; ++i) {
+    auto n = i;
+    long steps = 0L;
+
+    while (n != 1 && n >= i) {
+      if(n%2) n = n * 3 + 1;
+      else n /= 2;
+
+      steps++;
+    }
+    cache[i] = steps + cache[n];
+
+    if (cache[i] > length) {
+      length = cache[i];
+      number = i;
+    }
+  }
+
+  return number;
+}

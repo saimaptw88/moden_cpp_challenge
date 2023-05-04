@@ -24,6 +24,7 @@ std::vector<int> q8();
 std::vector<std::pair<int,int>> q9(int);
 std::vector<std::pair<std::bitset<5>,std::bitset<5>>> q10();
 std::string q11(unsigned long long);
+int q12();
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_
