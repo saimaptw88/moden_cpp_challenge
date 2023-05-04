@@ -260,3 +260,37 @@ int chapter01::q12() {
 
   return number;
 }
+
+double chapter01::q13() {
+  auto compute_pi = [](std::mt19937 &engine, std::uniform_real_distribution<> &dist) -> double {
+    const int samples = 1000000;
+
+    auto hit = 0;
+    for (auto i = 0; i < samples; ++i) {
+      auto x = dist(engine);
+      auto y = dist(engine);
+
+      if (y <= std::sqrt(1-std::pow(x,2))) hit++;
+    }
+
+    return 4.0 * hit / samples;
+  };
+
+  std::random_device rd;
+  // int型 要素数624の配列作成
+  auto seed_data = std::array<int , std::mt19937::state_size> {};
+  // 関数オブジェクトrdへの参照を用いてseed_data配列を初期化
+  std::generate(std::begin(seed_data), std::end(seed_data), std::ref(rd));
+  // seed_seqインスタンス作成
+  std::seed_seq seq(std::cbegin(seed_data), std::cend(seed_data));
+  // メルセンヌ・ツイスターインスタンスを作成
+  auto eng = std::mt19937{seq};
+  // 0~1の範囲で一様分布を作成する関数を作成
+  auto dist = std::uniform_real_distribution<> {0, 1};
+
+  double pi = 0.0;
+  for (int i = 0; i < 10; ++i)
+    pi = (pi * i + compute_pi(eng, dist))/(i+1);
+
+  return pi;
+}

@@ -3,11 +3,13 @@
 #define SRC_CHAPTER01_CHAPTER01_H_
 
 #include <algorithm>
+#include <array>
 #include <bitset>
 #include <cmath>
 #include <functional>
 #include <iostream>
 #include <list>
+#include <random>
 #include <utility>
 #include <vector>
 
@@ -25,6 +27,7 @@ std::vector<std::pair<int,int>> q9(int);
 std::vector<std::pair<std::bitset<5>,std::bitset<5>>> q10();
 std::string q11(unsigned long long);
 int q12();
+double q13();
 }
 
 #endif  // SRC_CHAPTER01_CHAPTER01_H_
