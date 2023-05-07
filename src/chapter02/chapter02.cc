@@ -2,10 +2,6 @@
 #include "../../src/chapter02/chapter02.h"
 
 
-int sum(int a, int b) {
-  return a + b;
-}
-
 bool chapter02::ipv4::SetAddress(const std::string& kAddress) {
   if (!Validate(kAddress)) return false;
 
@@ -27,4 +23,10 @@ bool chapter02::ipv4::Validate(const std::string& kAddress) {
   if (std::regex_match(kAddress, IsAddress)) return true;
 
   return false;
+}
+
+std::string chapter02::ipv4_ans::to_string() const {
+  std::stringstream sstr;
+  sstr << this;
+  return sstr.str();
 }
