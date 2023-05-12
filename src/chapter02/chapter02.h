@@ -45,6 +45,7 @@ class ipv4 {
 };
 
 class ipv4_ans {
+ private:
   std::array<unsigned char, 4> data;
 
  public:
@@ -61,8 +62,11 @@ class ipv4_ans {
     explicit ipv4_ans(const uint64_t a) {
       auto divide = [] (const uint64_t a) {
         std::pair<int, int> b;
-        b.first = a / 1000;
         b.second = a % 1000;
+
+        const int carry = b.second / 256;
+        b.first = a / 1000 + carry;
+
 
         return b;
       };
@@ -87,7 +91,7 @@ class ipv4_ans {
       return
         (static_cast<uint32_t>(data[0]) * 1e9) +
         (static_cast<uint32_t>(data[1]) * 1e6) +
-        (static_cast<uint32_t>(data[2]) * 1e3)  +
+        (static_cast<uint32_t>(data[2]) * 1e3) +
         (static_cast<uint32_t>(data[3]));
     }
 
@@ -95,6 +99,41 @@ class ipv4_ans {
     ipv4_ans& operator=(const ipv4_ans& other) noexcept {
       data = other.data;
       return *this;
+    }
+
+    ipv4_ans& operator++() {
+      *this = ipv4_ans(1+this->to_int());
+      return *this;
+    }
+
+    ipv4_ans operator+(int) {
+      ipv4_ans result(*this);
+      ++(*this);
+      return result;
+    }
+
+    friend bool operator==(const ipv4_ans& a1, const ipv4_ans& a2) noexcept {
+      return a1.data == a2.data;
+    }
+
+    friend bool operator!=(const ipv4_ans& a1, const ipv4_ans& a2) noexcept {
+      return a1.data != a2.data;
+    }
+
+    friend bool operator<(const ipv4_ans& a1, const ipv4_ans& a2) noexcept {
+      return a1.data < a2.data;
+    }
+
+    friend bool operator>(const ipv4_ans& a1, const ipv4_ans& a2) noexcept {
+      return a1.data > a2.data;
+    }
+
+    friend bool operator<=(const ipv4_ans& a1, const ipv4_ans& a2) noexcept {
+      return a1.data <= a2.data;
+    }
+
+    friend bool operator>=(const ipv4_ans& a1, const ipv4_ans& a2) noexcept {
+      return a1.data >= a2.data;
     }
 
     friend std::ostream& operator<<(std::ostream& os, const ipv4_ans& a) {
@@ -130,7 +169,23 @@ class ipv4_ans {
       std::cin >> ip;
       if (!std::cin.fail()) std::cout << ip << std::endl;
     }
+
+    static void q16() {
+      ipv4_ans a1, a2;
+      std::cin >> a1 >> a2;
+
+      if (a1 >= a2) {
+        std::cout << "invalid range!" << std::endl;
+        return;
+      }
+
+      for (ipv4_ans a = a1; a < a2; ++a) {
+        std::cout << a << std::endl;
+      }
+    }
 };
+
+
 }  // namespace chapter02
 
 #endif  // SRC_CHAPTER02_CHAPTER02_H_
