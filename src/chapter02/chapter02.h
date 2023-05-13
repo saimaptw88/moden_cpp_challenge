@@ -4,9 +4,12 @@
 
 #include <array>
 #include <bitset>
+#include <exception>
 #include <functional>
-#include <istream>
 #include <iostream>
+#include <initializer_list>
+#include <istream>
+#include <memory>
 #include <regex>  // NOLINT
 #include <sstream>
 #include <string>
@@ -185,7 +188,76 @@ class ipv4_ans {
     }
 };
 
+template<class T, size_t R, size_t C>
+class array2d {
+  using value_type = T;
+  using iterator = value_type*;
+  using const_iterator = const value_type*;
+  std::vector<T> arr_;
 
+ public:
+  array2d() : arr_(R*C) {}
+  explicit array2d(std::initializer_list<T> l) : arr_(l) {}
+  constexpr T* data() noexcept { return arr_.data(); }
+  constexpr const T* data() const noexcept { return arr_.data(); }
+
+  constexpr T& at(const size_t r, const size_t c) {
+    return arr_.at(r * C + c);
+  }
+
+  constexpr const T& at(const size_t r, const size_t c) const {
+    return arr_.at(r * C + c);
+  }
+
+  constexpr T& operator() (const size_t r, const size_t c) {
+    return arr_[r * C + c];
+  }
+
+  constexpr const T& operator() (const size_t r, const size_t c) const {
+    return arr_[r * C + c];
+  }
+
+  constexpr bool empty() const noexcept { return R == 0 || C == 0; };
+
+  constexpr size_t size(const int rank) const {
+    if (rank == 1) return R;
+    else if (rank == 2) return C;
+
+    throw std::out_of_range("Rank is out of range!");
+  }
+
+  void fill(const T& value) {
+    std::fill(std::begin(arr_), std::end(arr_), value);
+  }
+
+  void swap(array2d& other) noexcept {
+    arr_.swap(other.arr_);
+  }
+
+  const_iterator begin() const { return arr_.data(); }
+  const_iterator end() const { return arr_.data() + arr_.size(); }
+  iterator begin() { return arr_.data(); }
+  iterator end() { return arr_.data() + arr_.size(); }
+};
+
+void q17() {
+  array2d<int, 2, 3> a {1,2,3,4,5,6};
+
+  for (size_t i = 0; i < a.size(1); ++i) {
+    for (size_t j = 0; j < a.size(2); ++j) {
+      a(i, j) *= 2;
+    }
+  }
+
+  std::copy(std::cbegin(a), std::cend(a), std::ostream_iterator<int>(std::cout, " "));
+
+  array2d<int, 2, 3> b;
+  b.fill(1);
+
+  a.swap(b);
+
+  array2d<int, 2, 3> c(std::move(b));
+}
 }  // namespace chapter02
 
 #endif  // SRC_CHAPTER02_CHAPTER02_H_
