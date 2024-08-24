@@ -1,11 +1,11 @@
 // Copyright 2023 saito
 #include <iostream>
 
-#include "../src/chapter02/chapter02.h"
+#include "chapter02/chapter02.hh"
 
 
 int main() {
-  chapter02::q17();
+  std::cout << "***** MAIN *****" << std::endl;
 
   return 0;
 }

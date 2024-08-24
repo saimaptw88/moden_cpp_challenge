@@ -24,7 +24,7 @@ fi
 # Create files
 CMAKE_FILE="$NEW_DIR/CMakeLists.txt"
 CPP_FILE="$NEW_DIR/$NAME.cc"
-H_FILE="$NEW_DIR/$NAME.h"
+H_FILE="$NEW_DIR/$NAME.hh"
 TEST_FILE=$NEW_DIR/$TEST_NAME.cc
 
 touch $CMAKE_FILE
@@ -49,7 +49,7 @@ target_link_libraries($TEST_NAME $NAME gtest gtest_main pthread)"
 echo "$text" > $CMAKE_FILE
 
 # Write template code to $NAME.h
-GUARD=SRC_$UPPER_NAME"_"$UPPER_NAME"_H_"
+GUARD=SRC_$UPPER_NAME"_"$UPPER_NAME"_HH_"
 
 text="// Copyright $(date +%Y) saito
 #ifndef $GUARD
@@ -65,7 +65,7 @@ int sum(int, int);
 echo "$text" > $H_FILE
 
 # Write template code to $NAME.cc
-INCLUDE_FILE_NAME='"../../src/'$NAME/$NAME.h'"'
+INCLUDE_FILE_NAME='"../../src/'$NAME/$NAME.hh'"'
 text="// Copyright $(date +%Y) saito
 #include $INCLUDE_FILE_NAME
 
