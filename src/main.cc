@@ -7,5 +7,7 @@
 int main() {
   std::cout << "***** MAIN *****" << std::endl;
 
+  chapter02::execute();
+
   return 0;
 }
