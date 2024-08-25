@@ -2,6 +2,9 @@
 #include "chapter02.hh"
 
 #include <iostream>
+#include <memory>
+#include <utility>
+#include <vector>
 
 
 namespace chapter02 {
@@ -19,6 +22,21 @@ void execute() {
   auto ip_address4 = Question16::IPv4("255.255.254.254");
 
   Question16::PrintIpRange(ip_address3, ip_address4);
+
+  using Vecs = std::vector<Question17::DoubleDimmVector<int>>;
+
+  std::unique_ptr<Vecs> vecs;
+  vecs = std::make_unique<Vecs>();
+
+  vecs->emplace_back(10);
+  vecs->emplace_back(10, 3);
+  vecs->emplace_back(10, 3, 1);
+
+  for (auto&& vec : *vecs) {
+    vec.print();
+  }
+
+  std::vector<std::vector<int>> v(2);
 }
 
 int add(int a, int b) {
@@ -58,8 +76,4 @@ int to_integer(std::string str) {
 
   return result;
 }
-
-namespace Question16 {
-
-}  // namespace Question16
 }  // namespace chapter02

@@ -3,7 +3,10 @@
 #define SRC_CHAPTER02_CHAPTER02_HH_
 
 
+#include <cstddef>
+#include <initializer_list>
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <utility>
 #include <vector>
@@ -141,6 +144,101 @@ class PrintIpRange {
     const int kMaxNumber_ = 255;
 };
 }  // namespace Question16
+
+namespace Question17 {
+
+template<typename T>
+class DoubleDimmVector {
+  public:
+    DoubleDimmVector() = default;
+
+    template<typename U>
+    DoubleDimmVector(U size) : data_(size) {}
+
+    template <typename U, typename V>
+    DoubleDimmVector(U size, V size_second)
+      : data_(size, std::vector<T>(size_second)) {};
+
+    template <typename U, typename V>
+    DoubleDimmVector(U size, V size_second, T init)
+      : data_(size, std::vector<T>(size_second, init)) {};
+
+    template <typename U>
+    DoubleDimmVector(U size, std::initializer_list<T> init)
+      : data_(size, init.begin(), init.end()) {}
+
+    template <typename U>
+    std::vector<T>& at(U i) {
+      return data_[i];
+    }
+
+    template <typename U>
+    T& at(U i, U j) const {
+      return data_[i][j];
+    }
+
+    std::size_t size() const {
+      return data_.size();
+    }
+
+    template <typename U>
+    std::size_t size(U i) const {
+      return data_[i].size();
+    }
+
+    T& data() {
+      return &data_;
+    }
+
+    auto begin() noexcept -> std::vector<std::vector<T>>::iterator {
+      return data_.begin();
+    }
+
+    auto cbegin() const noexcept ->std::vector<std::vector<T>>::const_iterator {
+      return data_.cbegin();
+    }
+
+    auto end() noexcept -> std::vector<std::vector<T>>::iterator {
+      return data_.end();
+    }
+
+    auto cend() const noexcept -> std::vector<std::vector<T>>::const_iterator {
+      return data_.cend();
+    }
+
+    auto rbegin() noexcept -> std::vector<std::vector<T>>::iterator {
+      return data_.rbegin();
+    }
+
+    auto crbegin() const noexcept -> std::vector<std::vector<T>>::const_iterator {
+      return data_.crbegin();
+    }
+
+    auto rend() noexcept -> std::vector<std::vector<T>>::iterator {
+      return data_.rend();
+    }
+
+    auto crend() const noexcept -> std::vector<std::vector<T>>::const_iterator {
+      return data_.crend();
+    }
+
+    void print() {
+      const auto N = static_cast<int>(data_.size());
+
+      for (int i = 0; i < N; ++i) {
+        std::cout << i << ": ";
+
+        for (auto&& elem : data_[i]) {
+          std::cout << elem << ", ";
+        }
+        std::cout << std::endl;
+      }
+    }
+
+  private:
+    std::vector<std::vector<T>> data_;
+};
+}  // namespace Question17
 }  // namespace chapter02
 
 #endif  // SRC_CHAPTER02_CHAPTER02_HH_
