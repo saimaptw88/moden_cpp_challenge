@@ -3,11 +3,13 @@
 #define SRC_CHAPTER02_CHAPTER02_HH_
 
 
+#include <algorithm>
 #include <cstddef>
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
@@ -239,6 +241,31 @@ class DoubleDimmVector {
     std::vector<std::vector<T>> data_;
 };
 }  // namespace Question17
+
+namespace Question18 {
+template <typename Compare, typename... Args>
+auto compare(Compare cmp, Args... args) -> typename std::common_type<Args...>::type {
+  using CommonType = typename std::common_type<Args...>::type;
+
+  std::vector<CommonType> vec {args...};
+
+  auto min = vec[0];
+
+  for (auto&& v : vec) {
+    min = cmp(v, min) ? v : min;
+  }
+
+  return min;
+}
+
+template <typename... Args>
+auto minimum(Args... args) -> typename std::common_type<Args...>::type {
+  using CommonType = std::common_type<Args...>::type;
+
+  std::vector<CommonType> vec {args...};
+  return *std::min_element(vec.begin(), vec.end());
+}
+}  // namespace Question18
 }  // namespace chapter02
 
 #endif  // SRC_CHAPTER02_CHAPTER02_HH_

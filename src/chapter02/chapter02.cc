@@ -1,6 +1,7 @@
 // Copyright 2023 saito
 #include "chapter02.hh"
 
+#include <functional>
 #include <iostream>
 #include <memory>
 #include <utility>
@@ -36,7 +37,8 @@ void execute() {
     vec.print();
   }
 
-  std::vector<std::vector<int>> v(2);
+  std::cout << "compared = " << Question18::compare(std::greater<>(), 1,2,3,4,5,6,7,8) << std::endl;
+  std::cout << "min = " << Question18::minimum(1,2,3,4,5) << std::endl;
 }
 
 int add(int a, int b) {
