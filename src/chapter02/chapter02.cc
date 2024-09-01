@@ -39,6 +39,14 @@ void execute() {
 
   std::cout << "compared = " << Question18::compare(std::greater<>(), 1,2,3,4,5,6,7,8) << std::endl;
   std::cout << "min = " << Question18::minimum(1,2,3,4,5) << std::endl;
+
+  std::vector<int> vec { 1, 2, 3 };
+
+  Question19::push_back(vec, 4,5,6,7,8,9);
+
+  for (auto&& v : vec) {
+    std::cout << v << std::endl;
+  }
 }
 
 int add(int a, int b) {

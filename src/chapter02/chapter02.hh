@@ -266,6 +266,13 @@ auto minimum(Args... args) -> typename std::common_type<Args...>::type {
   return *std::min_element(vec.begin(), vec.end());
 }
 }  // namespace Question18
+
+namespace Question19 {
+template <typename Container, typename... Args>
+void push_back(Container& c, Args&&... args) {
+  (c.push_back(args), ...);
+}  // namespace std
+}  // namespace Question19
 }  // namespace chapter02
 
 #endif  // SRC_CHAPTER02_CHAPTER02_HH_
