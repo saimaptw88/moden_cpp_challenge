@@ -47,6 +47,17 @@ void execute() {
   for (auto&& v : vec) {
     std::cout << v << std::endl;
   }
+
+  std::vector<int> v {1,2,3,4,5};
+  const int value = 7;
+  const auto has_any = Question20::contains_any(v, value, 8, 9, 10, 1);
+  std::cout << "has any " << value << " ? " << (has_any ? "T" : "F") << std::endl;
+
+  const auto has_all = Question20::contains_all(v, 1, 4, 5, 6);
+  std::cout << "has all ? " << (has_all ? "T" : "F") << std::endl;
+
+  const auto has_none = Question20::contains_none(v, 0, 7, 9, 2);
+  std::cout << "has none ? " << (has_none ? "T" : "F") << std::endl;
 }
 
 int add(int a, int b) {

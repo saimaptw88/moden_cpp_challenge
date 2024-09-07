@@ -273,6 +273,29 @@ void push_back(Container& c, Args&&... args) {
   (c.push_back(args), ...);
 }  // namespace std
 }  // namespace Question19
+
+namespace Question20 {
+template <typename Container, typename Arg>
+bool contains_any(Container& c, Arg arg) {
+  auto itr = std::find(std::begin(c), std::end(c), arg);
+  return itr != std::end(c);
+}
+
+template <typename Container, typename... Args>
+bool contains_any(Container& c, Args&&... args) {
+  return (... || contains_any(c, args));
+}
+
+template <typename Container, typename... Args>
+bool contains_all(Container& c, Args... args) {
+  return (... && contains_any(c, args));
+}
+
+template <typename Container, typename... Args>
+bool contains_none(Container& c, Args... args) {
+  return !contains_any(c, args...);
+}
+}  // namespace Question20
 }  // namespace chapter02
 
 #endif  // SRC_CHAPTER02_CHAPTER02_HH_
