@@ -5,6 +5,7 @@
 
 #include <algorithm>
 #include <cstddef>
+#include <exception>
 #include <initializer_list>
 #include <iostream>
 #include <iterator>
@@ -12,6 +13,8 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
+
+#include <signal.h>
 
 namespace chapter02 {
 void execute();
@@ -296,6 +299,104 @@ bool contains_none(Container& c, Args... args) {
   return !contains_any(c, args...);
 }
 }  // namespace Question20
+
+namespace Question22 {
+bool are_equal(const double d1, const double d2, const double epsilon = 0.001) {
+  return std::abs(d1 - d2) < epsilon;
+}
+
+enum class scale { celsius, fahreheit, kelvin };
+
+template <scale S>
+class quantity {
+  public:
+    constexpr explicit quantity(const double a) : amount_(a) {}
+    explicit operator double() const { return amount_; }
+
+  private:
+    const double amount_;
+};
+
+namespace temperature {
+template <scale S>
+inline bool operator==(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return are_equal(static_cast<double>(lhs), static_cast<double>(rhs));
+}
+
+template <scale S>
+inline bool operator!=(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return !are_equal(static_cast<double>(lhs), static_cast<double>(rhs));
+}
+
+template <scale S>
+inline bool operator<(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return static_cast<double>(lhs) < static_cast<double>(rhs);
+}
+
+template <scale S>
+inline bool operator>(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return static_cast<double>(lhs) > static_cast<double>(rhs);
+}
+
+template <scale S>
+inline bool operator<=(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return static_cast<double>(lhs) <= static_cast<double>(rhs);
+}
+
+template <scale S>
+inline bool operator>=(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return static_cast<double>(lhs) >= static_cast<double>(rhs);
+}
+
+template <scale S>
+inline bool operator+(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return quantity<S>(static_cast<double>(lhs) + static_cast<double>(rhs));
+}
+
+template <scale S>
+inline bool operator-(const quantity<S>& lhs, const quantity<S>& rhs) {
+  return quantity<S>(static_cast<double>(lhs) - static_cast<double>(rhs));
+}
+
+template <scale S, scale R>
+struct conversion_traits {
+  static double convert(const double value) = delete;
+};
+
+template <>
+struct conversion_traits<scale::celsius, scale::fahreheit> {
+  static double convert(const double value) {
+    return (value - 32) / 5 + 32;
+  }
+};
+
+template <>
+struct conversion_traits<scale::fahreheit, scale::celsius> {
+  static double convert(const double value) {
+    return (value - 32) * 5 / 9;
+  }
+};
+
+template <scale R, scale S>
+constexpr quantity<R> temperature_cast(const quantity<S> q) {
+  return quantity<R>(conversion_traits<S, R>::convert(static_cast<double>(q)));
+}
+}  // namespace temperature
+
+namespace temperature::temperature_scale_literals {
+constexpr quantity<scale::celsius> operator"" _deg(const long double amount) {
+  return quantity<scale::celsius>(static_cast<double>(amount));
+}
+
+constexpr quantity<scale::fahreheit> operator"" _f(const long double amount) {
+  return quantity<scale::fahreheit>(static_cast<double>(amount));
+}
+
+constexpr quantity<scale::kelvin> operator"" _k(const long double amount) {
+  return quantity<scale::kelvin>(static_cast<double>(amount));
+}
+}  // namespace temperature::temperature_scale_literals
+}  // namespace Question22
 }  // namespace chapter02
 
 #endif  // SRC_CHAPTER02_CHAPTER02_HH_

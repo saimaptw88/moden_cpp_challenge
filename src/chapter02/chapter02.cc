@@ -1,6 +1,7 @@
 // Copyright 2023 saito
 #include "chapter02.hh"
 
+#include <cassert>
 #include <functional>
 #include <iostream>
 #include <memory>
@@ -58,6 +59,17 @@ void execute() {
 
   const auto has_none = Question20::contains_none(v, 0, 7, 9, 2);
   std::cout << "has none ? " << (has_none ? "T" : "F") << std::endl;
+
+  using namespace Question22::temperature;
+  using namespace Question22::temperature::temperature_scale_literals;
+
+  auto t1 {36.5_deg};
+  auto t2 {79.0_f};
+
+  auto tf = temperature_cast<Question22::scale::fahreheit>(t1);
+  auto tc = temperature_cast<Question22::scale::celsius>(t2);
+
+  std::cout << double(tf) << ", " << double(tc) << std::endl;
 }
 
 int add(int a, int b) {
