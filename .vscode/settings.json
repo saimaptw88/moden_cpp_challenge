@@ -76,6 +76,8 @@
     "memory_resource": "cpp",
     "stop_token": "cpp",
     "thread": "cpp",
-    "list": "cpp"
+    "list": "cpp",
+    "regex": "cpp",
+    "stack": "cpp"
   }
 }
