@@ -1,5 +1,5 @@
 // Copyright 2023 saito
-#include "chapter02.hh"
+#include "../../src/chapter02/chapter02.hh"
 
 #include <cassert>
 #include <functional>
@@ -38,21 +38,27 @@ void execute() {
     vec.print();
   }
 
-  std::cout << "compared = " << Question18::compare(std::greater<>(), 1,2,3,4,5,6,7,8) << std::endl;
-  std::cout << "min = " << Question18::minimum(1,2,3,4,5) << std::endl;
+  std::cout << "compared = "
+            << Question18::compare(std::greater<>(), 1, 2, 3, 4, 5, 6, 7, 8)
+            << std::endl;
+  std::cout << "min = " << Question18::minimum(1, 2, 3, 4, 5) << std::endl;
 
   std::vector<int> vec { 1, 2, 3 };
 
-  Question19::push_back(vec, 4,5,6,7,8,9);
+  Question19::push_back(vec, 4, 5, 6, 7, 8, 9);
 
   for (auto&& v : vec) {
     std::cout << v << std::endl;
   }
 
-  std::vector<int> v {1,2,3,4,5};
+  std::vector<int> v {1, 2, 3, 4, 5};
   const int value = 7;
   const auto has_any = Question20::contains_any(v, value, 8, 9, 10, 1);
-  std::cout << "has any " << value << " ? " << (has_any ? "T" : "F") << std::endl;
+  std::cout << "has any "
+            << value
+            << " ? "
+            << (has_any ? "T" : "F")
+            << std::endl;
 
   const auto has_all = Question20::contains_all(v, 1, 4, 5, 6);
   std::cout << "has all ? " << (has_all ? "T" : "F") << std::endl;
@@ -60,11 +66,14 @@ void execute() {
   const auto has_none = Question20::contains_none(v, 0, 7, 9, 2);
   std::cout << "has none ? " << (has_none ? "T" : "F") << std::endl;
 
-  using namespace Question22::temperature;
-  using namespace Question22::temperature::temperature_scale_literals;
 
-  auto t1 {36.5_deg};
+  using Question22::temperature::temperature_scale_literals::operator"" _deg;
+  using Question22::temperature::temperature_scale_literals::operator"" _f;
+
+  auto t1{36.5_deg};
   auto t2 {79.0_f};
+
+  using Question22::temperature::temperature_cast;
 
   auto tf = temperature_cast<Question22::scale::fahreheit>(t1);
   auto tc = temperature_cast<Question22::scale::celsius>(t2);
@@ -80,13 +89,12 @@ std::vector<std::string> split(const std::string &s, char delim) {
     std::vector<std::string> elems;
     std::string item;
 
-    for (char ch: s) {
+    for (char ch : s) {
         if (ch == delim) {
             if (!item.empty())
                 elems.push_back(item);
             item.clear();
-        }
-        else {
+        } else {
             item += ch;
         }
     }

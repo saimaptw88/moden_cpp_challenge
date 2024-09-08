@@ -2,6 +2,7 @@
 #ifndef SRC_CHAPTER02_CHAPTER02_HH_
 #define SRC_CHAPTER02_CHAPTER02_HH_
 
+#include <signal.h>
 
 #include <algorithm>
 #include <cstddef>
@@ -14,7 +15,6 @@
 #include <utility>
 #include <vector>
 
-#include <signal.h>
 
 namespace chapter02 {
 void execute();
@@ -26,17 +26,20 @@ int to_integer(std::string str);
 
 namespace Question15 {
 class IPv4 {
-  public:
-    IPv4(std::string ip) : ip_(std::forward<std::string>(ip)) {}
+ public:
+    explicit IPv4(std::string ip) : ip_(std::forward<std::string>(ip)) {}
     IPv4(int a, int b, int c, int d)
-      : ip_{std::to_string(a) + '.' + std::to_string(b) + '.' + std::to_string(c) + '.' + std::to_string(d)}
+      : ip_{ std::to_string(a) + '.' +
+             std::to_string(b) + '.' +
+             std::to_string(c) + '.' +
+             std::to_string(d)}
     {}
 
     void print() const {
       std::cout << ip_ << std::endl;
     }
 
-  private:
+ private:
     std::string ip_;
 };
 }  // namespace Question15
@@ -53,15 +56,21 @@ struct IpAddress {
   {}
 
   IpAddress(std::string a, std::string b, std::string c, std::string d)
-    : first{to_integer(a)}, second{to_integer(b)}, third{to_integer(c)}, forth{to_integer(d)}
+    : first{to_integer(a)}
+    , second{to_integer(b)}
+    , third{to_integer(c)}
+    , forth{to_integer(d)}
   {}
 };
 class IPv4 {
-  public:
-    IPv4(std::string ip) : ip_(std::forward<std::string>(ip)) {}
+ public:
+    explicit IPv4(std::string ip) : ip_(std::forward<std::string>(ip)) {}
 
     IPv4(int a, int b, int c, int d)
-      : ip_{std::to_string(a) + '.' + std::to_string(b) + '.' + std::to_string(c) + '.' + std::to_string(d)}
+      : ip_{std::to_string(a) + '.' +
+            std::to_string(b) + '.' +
+            std::to_string(c) + '.' +
+            std::to_string(d)}
     {}
 
     auto ip_address() const -> IpAddress {
@@ -72,12 +81,12 @@ class IPv4 {
       return result;
     }
 
-  private:
+ private:
     std::string ip_;
 };
 
 class PrintIpRange {
-  public:
+ public:
     PrintIpRange(IPv4 big, IPv4 small) {
       auto ip_big = big.ip_address();
       auto ip_small = small.ip_address();
@@ -119,7 +128,7 @@ class PrintIpRange {
       }
     }
 
-  private:
+ private:
     bool is_bigger(IpAddress a, IpAddress b) const {
       if (a.first > b.first) {
         return true;
@@ -154,19 +163,19 @@ namespace Question17 {
 
 template<typename T>
 class DoubleDimmVector {
-  public:
+ public:
     DoubleDimmVector() = default;
 
     template<typename U>
-    DoubleDimmVector(U size) : data_(size) {}
+    explicit DoubleDimmVector(U size) : data_(size) {}
 
     template <typename U, typename V>
     DoubleDimmVector(U size, V size_second)
-      : data_(size, std::vector<T>(size_second)) {};
+      : data_(size, std::vector<T>(size_second)) {}
 
     template <typename U, typename V>
     DoubleDimmVector(U size, V size_second, T init)
-      : data_(size, std::vector<T>(size_second, init)) {};
+      : data_(size, std::vector<T>(size_second, init)) {}
 
     template <typename U>
     DoubleDimmVector(U size, std::initializer_list<T> init)
@@ -215,7 +224,8 @@ class DoubleDimmVector {
       return data_.rbegin();
     }
 
-    auto crbegin() const noexcept -> std::vector<std::vector<T>>::const_iterator {
+    auto crbegin() const noexcept
+      -> std::vector<std::vector<T>>::const_iterator {
       return data_.crbegin();
     }
 
@@ -240,14 +250,15 @@ class DoubleDimmVector {
       }
     }
 
-  private:
+ private:
     std::vector<std::vector<T>> data_;
 };
 }  // namespace Question17
 
 namespace Question18 {
 template <typename Compare, typename... Args>
-auto compare(Compare cmp, Args... args) -> typename std::common_type<Args...>::type {
+auto compare(Compare cmp, Args... args)
+  -> typename std::common_type<Args...>::type {
   using CommonType = typename std::common_type<Args...>::type;
 
   std::vector<CommonType> vec {args...};
@@ -272,30 +283,30 @@ auto minimum(Args... args) -> typename std::common_type<Args...>::type {
 
 namespace Question19 {
 template <typename Container, typename... Args>
-void push_back(Container& c, Args&&... args) {
+void push_back(Container& c, Args&&... args) {  // NOLINT
   (c.push_back(args), ...);
 }  // namespace std
 }  // namespace Question19
 
 namespace Question20 {
 template <typename Container, typename Arg>
-bool contains_any(Container& c, Arg arg) {
+bool contains_any(Container& c, Arg arg) {  // NOLINT
   auto itr = std::find(std::begin(c), std::end(c), arg);
   return itr != std::end(c);
 }
 
 template <typename Container, typename... Args>
-bool contains_any(Container& c, Args&&... args) {
+bool contains_any(Container& c, Args&&... args) {  // NOLINT
   return (... || contains_any(c, args));
 }
 
 template <typename Container, typename... Args>
-bool contains_all(Container& c, Args... args) {
+bool contains_all(Container& c, Args... args) {  // NOLINT
   return (... && contains_any(c, args));
 }
 
 template <typename Container, typename... Args>
-bool contains_none(Container& c, Args... args) {
+bool contains_none(Container& c, Args... args) {  // NOLINT
   return !contains_any(c, args...);
 }
 }  // namespace Question20
@@ -309,11 +320,11 @@ enum class scale { celsius, fahreheit, kelvin };
 
 template <scale S>
 class quantity {
-  public:
+ public:
     constexpr explicit quantity(const double a) : amount_(a) {}
     explicit operator double() const { return amount_; }
 
-  private:
+ private:
     const double amount_;
 };
 
